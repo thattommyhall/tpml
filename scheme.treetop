@@ -1,4 +1,12 @@
 grammar Scheme
+  rule program
+    expressions:sexp* {
+      def to_ast
+        Program.new(*expressions.elements.map{|el| el.to_ast})
+      end
+    }
+  end
+
   rule sexp
     atom / list
   end
