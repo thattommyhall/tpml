@@ -6,6 +6,18 @@ class Atom
   end
 
   def ==(other)
-    self.symbol == other.symbol
+    symbol == other.symbol
+  end
+
+  def evaluate(env={})
+    int? ? to_int : env[symbol]
+  end
+
+  def int?
+    !!(symbol =~ /^[-+]?[0-9]+$/)
+  end
+
+  def to_int
+    symbol.to_i
   end
 end

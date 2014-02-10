@@ -12,10 +12,20 @@ class List
   end
 
   def ==(other)
-    self.array == other.array
+    array == other.array
   end
 
-  protected
-
+  def evaluate(env = {})
+    function = car.symbol
+    arguments = @array[1..-1]
+    case function
+    when :quote
+      arguments[0]
+    when :car
+      arguments[0].evaluate(env).car
+    when :cdr
+      arguments[0].evaluate(env).cdr
+    end
+  end
   attr_reader :array
 end
