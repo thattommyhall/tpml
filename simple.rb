@@ -1,15 +1,6 @@
 require 'treetop'
-require 'atom'
-require 'list'
-require 'evaluator'
+require_relative 'atom'
+require_relative 'list'
 
-
-
-Treetop.load('scheme.treetop')
-
-parser = SchemeParser.new
-
-program = parser.parse("(car (cdr l))").to_ast
-l = parser.parse("(1 2 3)").to_ast
-
-p Evaluator.new(program).evaluate({"l" => l})
+require_relative 'evaluator'
+require_relative 'parser'
