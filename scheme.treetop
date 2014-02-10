@@ -1,6 +1,6 @@
 grammar Scheme
   rule program
-    expressions:sexp* {
+    expressions:(' '* sexp)* {
       def to_ast
         Program.new(*expressions.elements.map{|el| el.to_ast})
       end
