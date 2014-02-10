@@ -12,7 +12,7 @@ grammar Scheme
   end
 
   rule list
-    '(' sexps:(sexp ' '?)* ')' {
+    '(' sexps:(' '? sexp ' '?)* ')' {
       def to_ast
         list_contents = sexps.elements.map{|element| element.sexp.to_ast }
         List.new(*list_contents)
@@ -20,8 +20,20 @@ grammar Scheme
     }
   end
 
+  rule space
+    [\s\n\r\t]
+  end
+
+  rule paren
+    [\(\)\[\]]
+  end
+
+  rule delimiter
+    paren / space
+  end
+
   rule atom
-    [0-9a-z]+ {
+    (!delimiter .)+ {
       def to_ast
         Atom.new(text_value)
       end
