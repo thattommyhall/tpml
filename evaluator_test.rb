@@ -58,7 +58,7 @@ class EvalParseTest < Minitest::Test
   end
 
   def test_define
-    assert_equal 2, eval_expression('(define a  2)a')
+    assert_equal 2, eval_expression('(define a  2) a')
   end
 
   def eval_expression(expression, env={})
