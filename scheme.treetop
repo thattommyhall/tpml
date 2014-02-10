@@ -12,7 +12,7 @@ grammar Scheme
   end
 
   rule list
-    '(' sexps:(' '? sexp ' '?)* ')' {
+    '(' sexps:(' '* sexp ' '*)* ')' {
       def to_ast
         list_contents = sexps.elements.map{|element| element.sexp.to_ast }
         List.new(*list_contents)
