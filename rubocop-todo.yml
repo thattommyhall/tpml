@@ -6,7 +6,10 @@ Documentation:
   Enabled: false
 
 LineLength:
-  Max: 84
+  Max: 122
+
+MethodLength:
+  Max: 16
 
 SpaceAroundEqualsInParameterDefault:
   Enabled: false
