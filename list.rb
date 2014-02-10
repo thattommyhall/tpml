@@ -26,8 +26,6 @@ class List
       [arguments[0].evaluate(env)[0].car, env]
     when :cdr
       [arguments[0].evaluate(env)[0].cdr, env]
-    when :cons
-      [List.new([arguments[0].evaluate(env)] + arguments[1].evaluate(env).array), env]
     when :define
       [nil, env.merge(arguments[0].symbol => arguments[1].evaluate[0])]
     else
