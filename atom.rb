@@ -2,7 +2,7 @@ class Atom
   attr_reader :symbol
 
   def initialize(symbol)
-    @symbol = symbol
+    @symbol = symbol.to_sym
   end
 
   def ==(other)
@@ -18,6 +18,6 @@ class Atom
   end
 
   def to_int
-    symbol.to_i
+    symbol.to_s.to_i
   end
 end

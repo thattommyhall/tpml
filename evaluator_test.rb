@@ -2,7 +2,6 @@ require 'minitest/autorun'
 
 require_relative 'atom'
 require_relative 'list'
-require_relative 'number'
 require_relative 'program'
 require_relative 'evaluator'
 require_relative 'parser'
@@ -25,7 +24,7 @@ class ParserTest < Minitest::Test
   end
 
   def test_nested
-    assert_equal Program.new(List.new(Atom.new('a'),List.new(Atom.new('b'),Atom.new('c')))), to_ast('(a (b c))')
+    assert_equal Program.new(List.new(Atom.new('quote'),List.new(Atom.new('b'),Atom.new('c')))), to_ast('(quote (b c))')
   end
 
   def ab
@@ -47,7 +46,15 @@ class EvalParseTest < Minitest::Test
   end
 
   def test_lookup
-    assert_equal 5, eval_expression('a', 'a' => 5)
+    assert_equal 5, eval_expression('a', a: 5)
+  end
+
+  def test_quote
+    assert_equal Atom.new('5'), eval_expression('(quote 5)')
+  end
+
+  def test_quote_list
+    assert_equal List.new(Atom.new('1'),Atom.new('2')), eval_expression('(quote (1 2))')
   end
 
   def eval_expression(expression, env={})
@@ -61,6 +68,7 @@ class EvalParseTest < Minitest::Test
   def evaluate(program, env = {})
     Evaluator.new(program).evaluate(env)
   end
+
 end
 
 class EvaluatorTest < Minitest::Test
