@@ -10,7 +10,8 @@ class Atom
   end
 
   def evaluate(env={})
-    int? ? to_int : env[symbol]
+    result = int? ? to_int : env[symbol]
+    [result, env]
   end
 
   def int?

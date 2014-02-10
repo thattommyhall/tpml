@@ -24,7 +24,7 @@ class ParserTest < Minitest::Test
   end
 
   def test_nested
-    assert_equal Program.new(List.new(Atom.new('quote'),List.new(Atom.new('b'),Atom.new('c')))), to_ast('(quote (b c))')
+    assert_equal Program.new(List.new(Atom.new('quote'), List.new(Atom.new('b'), Atom.new('c')))), to_ast('(quote (b c))')
   end
 
   def ab
@@ -54,7 +54,11 @@ class EvalParseTest < Minitest::Test
   end
 
   def test_quote_list
-    assert_equal List.new(Atom.new('1'),Atom.new('2')), eval_expression('(quote (1 2))')
+    assert_equal List.new(Atom.new('1'), Atom.new('2')), eval_expression('(quote (1 2))')
+  end
+
+  def test_define
+    assert_equal 2, eval_expression('(define a 2)a')
   end
 
   def eval_expression(expression, env={})
@@ -68,7 +72,6 @@ class EvalParseTest < Minitest::Test
   def evaluate(program, env = {})
     Evaluator.new(program).evaluate(env)
   end
-
 end
 
 class EvaluatorTest < Minitest::Test

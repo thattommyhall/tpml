@@ -16,15 +16,22 @@ class List
   end
 
   def evaluate(env = {})
+    # puts "Called eval on #{@array}"
     function = car.symbol
     arguments = @array[1..-1]
     case function
     when :quote
-      arguments[0]
+      [arguments[0], env]
     when :car
-      arguments[0].evaluate(env).car
+      [arguments[0].evaluate(env)[0].car, env]
     when :cdr
-      arguments[0].evaluate(env).cdr
+      [arguments[0].evaluate(env)[0].cdr, env]
+    when :cons
+      [List.new([arguments[0].evaluate(env)] + arguments[1].evaluate(env).array), env]
+    when :define
+      [nil, env.merge(arguments[0].symbol => arguments[1].evaluate[0])]
+    else
+      fail
     end
   end
   attr_reader :array
